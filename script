@@ -60,12 +60,15 @@ function [single_traces, skipped, extra_beat, errors] = BeatSegmentation(NAME, Y
         peaks_time = location2/AF;
         peaks_period = (diff(peaks_time));
         is_extra_beat = find(peaks_period<cutoff);  
+        
+   %%%% length(peaks) = diff_y (difference of consectutive points)
+   %%%% length (peaks2) = y (total trace of flourescent)
 
         if (length(peaks)-length(peaks2))>1
             
-            disp('>>>>>> noisy signal detected and excluded.')        
+            disp('>>>>>> noisy signal detected and excluded.') %%%Happens whnen length(peaks) is grater than length (peaks2)       
             skip = 1;
-            skipped(k).data = y_original;
+            skipped(k).data = y_original; %%% y_original is th total flourescent trace
             skipped(k).name = Names{i,1};
             skipped(k).id = i;
             k=k+1;
